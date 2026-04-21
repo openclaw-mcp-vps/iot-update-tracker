@@ -1,13 +1,30 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+:root {
+  --background: #0d1117;
+  --foreground: #e6edf3;
+  --muted: #9aa4b2;
+  --card: #111827;
 }
 
-html {
-  scroll-behavior: smooth;
+* {
+  border-color: #30363d;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background-color: var(--background);
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(0, 196, 140, 0.16), transparent 45%),
+    radial-gradient(circle at 85% 10%, rgba(56, 189, 248, 0.12), transparent 40%),
+    linear-gradient(160deg, rgba(8, 12, 20, 0.9), rgba(13, 17, 23, 1));
+  color: var(--foreground);
+}
+
+a {
+  color: inherit;
 }

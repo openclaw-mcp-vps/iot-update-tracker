@@ -1,109 +1,181 @@
-export default function Home() {
-  const checkoutUrl = process.env.NEXT_PUBLIC_LS_CHECKOUT_URL || "#";
+import Link from "next/link";
+import { CheckCircle2, ChevronRight, Radar, ShieldAlert, ShieldCheck, Timer } from "lucide-react";
+
+const faqs = [
+  {
+    question: "How does discovery work in locked-down corporate networks?",
+    answer:
+      "You can run segmented scans by VLAN or subnet and manually register devices that sit behind ACL boundaries. The tracker merges both sources into one risk view."
+  },
+  {
+    question: "How quickly are new vulnerabilities reflected?",
+    answer:
+      "The monitor checks configured feeds on a recurring schedule and re-evaluates every tracked firmware version against known CVEs and vendor patch baselines."
+  },
+  {
+    question: "Can MSPs separate clients and sites?",
+    answer:
+      "Yes. Device records can be grouped by location and scanned in batches, which gives MSP teams a single queue of remediation actions across all managed environments."
+  },
+  {
+    question: "What happens after purchase?",
+    answer:
+      "Checkout runs on Stripe hosted payment pages. Once payment is confirmed through webhook, enter your checkout email in the unlock screen and access is granted by secure cookie."
+  }
+];
+
+export default function HomePage() {
+  const stripePaymentLink = process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK ?? "";
 
   return (
-    <main className="min-h-screen bg-[#0d1117] text-[#c9d1d9]">
-      {/* Hero */}
-      <section className="max-w-4xl mx-auto px-6 pt-24 pb-20 text-center">
-        <div className="inline-block bg-[#58a6ff]/10 border border-[#58a6ff]/30 text-[#58a6ff] text-xs font-semibold px-3 py-1 rounded-full mb-6 uppercase tracking-widest">
-          Security Tools
-        </div>
-        <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight mb-6">
-          Track Security Updates<br />
-          <span className="text-[#58a6ff]">for Your IoT Devices</span>
-        </h1>
-        <p className="text-lg md:text-xl text-[#8b949e] max-w-2xl mx-auto mb-10">
-          Monitor firmware versions across all your IoT devices, get instant CVE alerts, and never miss a critical security patch again.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            href={checkoutUrl}
-            className="bg-[#58a6ff] hover:bg-[#79b8ff] text-[#0d1117] font-bold px-8 py-4 rounded-lg text-lg transition-colors"
-          >
-            Start Monitoring — $9/mo
-          </a>
-          <a
-            href="#faq"
-            className="border border-[#30363d] hover:border-[#58a6ff] text-[#c9d1d9] px-8 py-4 rounded-lg text-lg transition-colors"
-          >
-            Learn More
-          </a>
-        </div>
-        <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
-          {[
-            { icon: "🔍", title: "Firmware Scanning", desc: "Continuously checks device firmware versions against known vulnerability databases." },
-            { icon: "🚨", title: "CVE Alerts", desc: "Instant notifications when a CVE is published affecting your registered devices." },
-            { icon: "📋", title: "Update Reports", desc: "Weekly digest of pending updates and security posture across your entire fleet." }
-          ].map((f) => (
-            <div key={f.title} className="bg-[#161b22] border border-[#30363d] rounded-xl p-6">
-              <div className="text-3xl mb-3">{f.icon}</div>
-              <h3 className="text-white font-semibold mb-2">{f.title}</h3>
-              <p className="text-[#8b949e] text-sm">{f.desc}</p>
+    <main>
+      <section className="relative overflow-hidden border-b border-zinc-800">
+        <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-24">
+          <div>
+            <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-zinc-700 bg-zinc-900/80 px-3 py-1 text-xs text-zinc-300">
+              <Radar className="h-3.5 w-3.5 text-emerald-300" />
+              Security tools for teams with 50+ IoT endpoints
+            </p>
+            <h1 className="text-4xl font-semibold leading-tight text-zinc-100 sm:text-5xl">
+              Track security updates for your IoT devices before attackers do.
+            </h1>
+            <p className="mt-5 max-w-xl text-base text-zinc-300 sm:text-lg">
+              IoT Update Tracker continuously discovers routers, cameras, smart-home panels, and industrial controllers, then maps firmware versions to known CVEs and patch releases.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <a
+                href={stripePaymentLink}
+                className="inline-flex h-11 items-center justify-center rounded-md bg-emerald-500 px-6 text-sm font-semibold text-black hover:bg-emerald-400"
+              >
+                Buy Access - $9/mo
+                <ChevronRight className="ml-2 h-4 w-4" />
+              </a>
+              <Link
+                href="/unlock"
+                className="inline-flex h-11 items-center justify-center rounded-md border border-zinc-700 px-6 text-sm font-semibold text-zinc-200 hover:bg-zinc-800"
+              >
+                I already purchased
+              </Link>
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
 
-      {/* Pricing */}
-      <section className="max-w-md mx-auto px-6 pb-20">
-        <h2 className="text-3xl font-bold text-white text-center mb-10">Simple Pricing</h2>
-        <div className="bg-[#161b22] border-2 border-[#58a6ff] rounded-2xl p-8 text-center">
-          <div className="text-[#58a6ff] font-semibold text-sm uppercase tracking-widest mb-2">Pro Plan</div>
-          <div className="text-5xl font-bold text-white mb-1">$9</div>
-          <div className="text-[#8b949e] mb-6">per month</div>
-          <ul className="text-left space-y-3 mb-8">
-            {[
-              "Up to 50 IoT devices",
-              "Real-time CVE notifications",
-              "Firmware version tracking",
-              "Weekly security reports",
-              "Email & webhook alerts",
-              "Cancel anytime"
-            ].map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[#c9d1d9]">
-                <span className="text-[#58a6ff] font-bold">✓</span>
-                {item}
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/70 p-6">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-400">What you monitor</h2>
+            <ul className="mt-4 space-y-3 text-sm text-zinc-300">
+              <li className="flex items-start gap-2">
+                <ShieldAlert className="mt-0.5 h-4 w-4 text-red-300" />
+                Firmware versions currently exposed to known CVEs
               </li>
+              <li className="flex items-start gap-2">
+                <Timer className="mt-0.5 h-4 w-4 text-amber-300" />
+                Devices lagging behind vendor security patch releases
+              </li>
+              <li className="flex items-start gap-2">
+                <ShieldCheck className="mt-0.5 h-4 w-4 text-emerald-300" />
+                Remediation playbooks to close risk quickly
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-zinc-800">
+        <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-semibold text-zinc-100">The problem teams face</h2>
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            <article className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-5">
+              <h3 className="text-sm font-semibold text-zinc-100">Patch blind spots</h3>
+              <p className="mt-2 text-sm text-zinc-300">
+                IoT devices are often installed once and forgotten. Firmware updates never reach operations teams until a breach happens.
+              </p>
+            </article>
+            <article className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-5">
+              <h3 className="text-sm font-semibold text-zinc-100">Daily CVE churn</h3>
+              <p className="mt-2 text-sm text-zinc-300">
+                New vulnerabilities are published constantly. Manual checks across dozens of vendors do not scale for small security teams.
+              </p>
+            </article>
+            <article className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-5">
+              <h3 className="text-sm font-semibold text-zinc-100">No remediation context</h3>
+              <p className="mt-2 text-sm text-zinc-300">
+                Even when risk is discovered, teams need clear upgrade paths and compensating controls to reduce exposure immediately.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-zinc-800">
+        <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-semibold text-zinc-100">How IoT Update Tracker solves it</h2>
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            <article className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-5">
+              <h3 className="text-sm font-semibold text-zinc-100">1. Discover devices continuously</h3>
+              <p className="mt-2 text-sm text-zinc-300">
+                Scan by subnet and maintain a live inventory across routers, cameras, smart systems, and industrial endpoints.
+              </p>
+            </article>
+            <article className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-5">
+              <h3 className="text-sm font-semibold text-zinc-100">2. Match firmware to vulnerabilities</h3>
+              <p className="mt-2 text-sm text-zinc-300">
+                Every firmware version is checked against known CVE patterns and latest vendor patch baselines.
+              </p>
+            </article>
+            <article className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-5">
+              <h3 className="text-sm font-semibold text-zinc-100">3. Send actionable alerts</h3>
+              <p className="mt-2 text-sm text-zinc-300">
+                Security alerts include severity, affected CVEs, and clear remediation guidance so teams can prioritize quickly.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-zinc-800">
+        <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-semibold text-zinc-100">Pricing</h2>
+          <div className="mt-6 max-w-md rounded-2xl border border-emerald-900 bg-emerald-950/20 p-6">
+            <p className="text-sm uppercase tracking-wide text-emerald-300">Security-Tools Plan</p>
+            <p className="mt-3 text-4xl font-semibold text-zinc-100">
+              $9<span className="text-base font-normal text-zinc-400">/month</span>
+            </p>
+            <ul className="mt-5 space-y-2 text-sm text-zinc-300">
+              <li className="flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-emerald-300" />
+                Unlimited device inventory tracking
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-emerald-300" />
+                CVE exposure scoring and patch guidance
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-emerald-300" />
+                Automated scan and monitoring workflow
+              </li>
+            </ul>
+            <a
+              href={stripePaymentLink}
+              className="mt-6 inline-flex h-11 w-full items-center justify-center rounded-md bg-emerald-500 text-sm font-semibold text-black hover:bg-emerald-400"
+            >
+              Start Protecting Devices
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-semibold text-zinc-100">FAQ</h2>
+          <div className="mt-6 space-y-3">
+            {faqs.map((faq) => (
+              <article key={faq.question} className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-5">
+                <h3 className="text-sm font-semibold text-zinc-100">{faq.question}</h3>
+                <p className="mt-2 text-sm text-zinc-300">{faq.answer}</p>
+              </article>
             ))}
-          </ul>
-          <a
-            href={checkoutUrl}
-            className="block w-full bg-[#58a6ff] hover:bg-[#79b8ff] text-[#0d1117] font-bold py-4 rounded-lg text-lg transition-colors"
-          >
-            Get Started Now
-          </a>
+          </div>
         </div>
       </section>
-
-      {/* FAQ */}
-      <section id="faq" className="max-w-2xl mx-auto px-6 pb-24">
-        <h2 className="text-3xl font-bold text-white text-center mb-10">FAQ</h2>
-        <div className="space-y-4">
-          {[
-            {
-              q: "Which IoT devices are supported?",
-              a: "IoT Update Tracker supports a wide range of devices including routers, smart home hubs, IP cameras, industrial sensors, and any device with a firmware version you can register. We cross-reference against the NVD and vendor security advisories."
-            },
-            {
-              q: "How quickly will I be notified of a new CVE?",
-              a: "Alerts are sent within minutes of a CVE being published to the National Vulnerability Database that matches a device in your account. You can receive notifications via email or webhook."
-            },
-            {
-              q: "Can I cancel my subscription at any time?",
-              a: "Yes. There are no long-term contracts. You can cancel your $9/mo subscription at any time from your billing portal and you will retain access until the end of your current billing period."
-            }
-          ].map((item) => (
-            <div key={item.q} className="bg-[#161b22] border border-[#30363d] rounded-xl p-6">
-              <h3 className="text-white font-semibold mb-2">{item.q}</h3>
-              <p className="text-[#8b949e] text-sm leading-relaxed">{item.a}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <footer className="border-t border-[#30363d] text-center py-8 text-[#8b949e] text-sm">
-        © {new Date().getFullYear()} IoT Update Tracker. All rights reserved.
-      </footer>
     </main>
   );
 }

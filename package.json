@@ -1,24 +1,40 @@
 {
   "name": "iot-update-tracker",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "next": "15",
-    "react": "18",
-    "react-dom": "18"
+    "@hookform/resolvers": "^3.10.0",
+    "@lemonsqueezy/lemonsqueezy.js": "^4.0.0",
+    "@radix-ui/react-dialog": "^1.1.15",
+    "@radix-ui/react-select": "^2.2.6",
+    "axios": "^1.8.4",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cron": "^4.3.3",
+    "lucide-react": "^0.511.0",
+    "next": "15.5.15",
+    "node-nmap": "^4.0.0",
+    "nodemailer": "^7.0.3",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "react-hook-form": "^7.56.3",
+    "tailwind-merge": "^3.3.0",
+    "tailwindcss": "^4.1.8",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
-    "typescript": "^5",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "tailwindcss": "^3",
-    "postcss": "^8",
-    "autoprefixer": "^10"
+    "@tailwindcss/postcss": "^4.1.8",
+    "@types/node": "^22.15.29",
+    "@types/nodemailer": "^6.4.17",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "postcss": "^8.5.4",
+    "typescript": "^5.8.3"
   }
 }
